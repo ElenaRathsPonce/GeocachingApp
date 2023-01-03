@@ -1,6 +1,6 @@
-###################                                         
-# Grupo 03                                                  
-###################                                         
+###################                                         1. DISEÑO DE LA BASE DE DATOS (SCHEMA)
+# Grupo 03                                                  2. CONEXION: MONGODB, GOOGLE OAUTH, HTML 
+###################                                         3. ESTRUCTURA DE LA APP
  
 # Ángel García González
 # Elena Raths Ponce
@@ -8,8 +8,8 @@
 # Ricardo Javier Fuentes Fino 
 
 
-from flask import Flask, session, abort, redirect, request
-from flask_pymongo import PyMongo
+from flask import Flask, session, abort, redirect, request, send_from_directory
+from flask_pymongo import PyMongo, MongoClient
 import requests
 from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
@@ -18,7 +18,7 @@ import google.auth.transport.requests
 import os
 import pathlib
 from mongoengine import connect
-from mongoengine import StringField, DictField, ListField
+from mongoengine import StringField, DictField, BinaryField, ListField
 
 
 app = Flask(__name__)
@@ -28,33 +28,31 @@ app.secret_key = "your-secret-key"
 ###################
 # MongoDB
 ###################
-mongo = PyMongo(app, uri="mongodb+srv://Elena:Elena@geocachingapp.0sxhylv.mongodb.net/test") # Contraseña?
+client = MongoClient('mongodb+srv://Elena:Elena@geocachingapp.0sxhylv.mongodb.net/test')['Geocaching']
 
-users = mongo.db.users
+users = client.db.users
 users_schema = {
     'name': StringField,
     'google_id': StringField, 
     #'games_played': ListField,
     #'games_created': ListField,
-    #'role': 
+    #'role': ?   2
 }
 
-games = mongo.db.games
+games = client.db.games
 games_schema = {
     'name': StringField, # Overview
-    'creator': StringField, # Creation
-    'state': StringField, # Overview, Supervition
+    'owner': StringField, # Creation
+    'state': StringField, # Overview, Supervition  2
     'winner': StringField, # Overview
-    'finalists': StringField, # Overview
+    'finalists': ListField, # Overview
     'area': DictField, # Creation
     'caches': ListField, # Creation, Supervition
-    'map': ListField, # Supervition
 }
 
-caches = mongo.db.caches
+caches = client.db.caches
 caches_schema = {
     'name': StringField,
-    'game': ListField, 
     'location': DictField,
     'hint': DictField,
     'state': StringField,
@@ -82,6 +80,16 @@ flow = Flow.from_client_secrets_file(
     scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
     redirect_uri="http://127.0.0.1:5000/callback"
 )
+
+@app.route('/<path:path>')
+def send_report(path):
+    return send_from_directory('static', str(path))
+
+def user_authentificated():
+    if session['google_id']:
+        return True
+    else: 
+        return login()
 
 # Protects the app from unauthorized users
 def login_is_required(function):
@@ -114,6 +122,11 @@ def callback():
         request=token_request,
         audience=GOOGLE_CLIENT_ID
     )
+    result = list(client['users'].find(
+        filter= {'google_id': id_info.get("sub")}
+    ))
+    if len(result) == 0: 
+        client['users'].insert_one({'google_id':id_info.get("sub"), 'name':id_info.get("name")})
     session["google_id"] = id_info.get("sub")
     session["name"] = id_info.get("name")
     return redirect("/protected_area")
@@ -127,13 +140,28 @@ def logout():
 # Index html page
 @app.route("/")
 def index():
-    return "<a href='/login'><button>Login</button></a>" # Return index.html
+    return send_from_directory('static', 'index.html')
 
 # Protected area, only visible for logged in users (gets executed from button to top)
 @app.route("/protected_area") 
 @login_is_required
 def protected_area():
     return f"{session['name']}! <br/> <a href='/logout'><button>Logout</button></a>"
+
+@app.route('/create_game')
+def create_game_page():
+    return send_from_directory('static', 'create_game.html')
+
+@app.route('/api/game', methods=['POST'])
+def create_game():
+    inserted=client['games'].insert_one({
+        'name':request.form.get('name'), 
+        #'owner':session['google_id'],
+        'owner':'114755650557250667772',
+        'topleft':int(request.form.get('topleft')),
+        'bottomright':int(request.form.get('bottomright')),
+    })
+    return redirect('/game?id='+str(inserted.inserted_id))
 
 
 ###################

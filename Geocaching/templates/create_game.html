@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h5> 
+    Create New Game Instances
+  </h5>
+
+  <form action="api/game" method="post">
+      <input type="text" name="name">
+      <input type="number" name="topleft">
+      <input type="number" name="bottomright">
+      <input type="submit" value="create">
+  </form>
+
+  <script>
+    function login(){
+      window.open('/login');
+    }
+  </script>
+{% endblock %}

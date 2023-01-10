@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h5> 
+    Overview Of registered games
+  </h5>
+
+  <ul class="list-group">
+    <li class="list-group-item">Ongoing Games</li>
+    <li class="list-group-item">Finished games & Winners</li>
+  </ul>
+
+  <div id="user_games">
+
+  </div>
+
+  <script src="/static/main.js">
+  </script>
+
+  <script>
+    loadframe("/user_games", "user_games");
+  </script>
+{% endblock %}

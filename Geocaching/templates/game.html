@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h5> 
+    Create New Game Instances
+  </h5>
+
+  <form action="api/create_caches" method="post" id="cache_form">
+      <input type="text" name="name">
+      <input type="text" name="hint">
+      <input type="number" name="long">
+      <input type="number" name="lat">
+      <input type="submit" value="create">
+  </form>
+
+  <script src="/static/main.js">
+  </script>
+
+  <div id="create_caches">
+
+  </div>
+
+  <script>
+    loadframe("/game/63b48b5c1f6524ab4e98f4d4/caches", "create_caches");
+    const f = document.getElementById("cache_form");
+    f.setAttribute("action", `api/create_caches/63b48b5c1f6524ab4e98f4d4`)
+  </script>
+{% endblock %}

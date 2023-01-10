@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h5> 
+    Log out from the app
+  </h5>
+
+  <button type="button" class="btn" onclick="login()"> 
+    Logout
+  </button>
+
+  <script>
+    function clear_session(){
+      window.open('/clear_session');
+    }
+  </script>
+{% endblock %}

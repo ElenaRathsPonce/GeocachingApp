@@ -1,19 +1,65 @@
-.padding {
+.navbar-header{
+    padding-left: 15px;
+  }
+  
+  body {
+      background-image: url("background.jpeg");
+      background-size: cover;
+  }
+  
+  .container-fluid{
+    padding-left: 15px;
+  }
+  
+  h4{
+    font-weight: bold;
+    color: rgb(97, 97, 97);
+    padding-top: 35px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+  }
+  
+  h6{
+    padding-left: 13px;
+  }
+  
+  .btn{
+    padding-left: 15px;
+  }
+  
+  .class_content{
     padding-left: 20px;
-    padding-right: 20px;
-}
-body {
-    background-color: #d4eafc;
-    background-image: url("C:\Users\erath\Desktop\PaaS\Geocaching\static\background.svg");
-}
-
-input[type="submit"] {
-    height: 50px;
-    font-size: 18px;
-    background-color: #006699;
-    color: #fff;
-    border: 0;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
+  }
+  
+  .table {
+    padding-left: 20px;
+    padding-right: 300px; 
+  }
+  
+  .mapa {
+    margin: 0;
+    height: 400px;
+    width: 600px;
+  }
+  
+  .tabs {
+    padding-left: 15px;
+    padding-right: 700px;
+    padding-bottom: 10px;
+  }
+  
+  .form_game {
+    padding-top: 20px;
+    padding-left: 5px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .form_group{
+    padding-bottom: 15px;
+    padding-top: 5px;
+  }
+  
+  .game_input {
+    padding-bottom: 5px;
+  }

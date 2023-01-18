@@ -1,23 +1,62 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h5> 
-    Overview Of registered games
-  </h5>
+  <h4> 
+    Overview of Registered Games
+  </h4>
 
-  <ul class="list-group">
-    <li class="list-group-item">Ongoing Games</li>
-    <li class="list-group-item">Finished games & Winners</li>
-  </ul>
-
-  <div id="user_games">
-
+  <div id="accordion">
+      <div class="card">
+      <div class="card-header">
+          <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
+          Ongoing Games
+          </a>
+      </div>
+      <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+          <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Game</th>
+                    <th scope="col">Participate</th>
+                    <th scope="col">Supervise</th>
+                  </tr>
+                </thead>
+                <tbody id="active_user_games">
+                </tbody>
+              </table>
+          </div>
+      </div>
+      </div>
+      <div class="card">
+      <div class="card-header">
+          <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
+          Finished Games
+          </a>
+      </div>
+      <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Game</th>
+                  <th scope="col">Winner</th>
+                  <th scope="col">Supervise</th>
+                </tr>
+              </thead>
+              <tbody id="inactive_user_games">
+              </tbody>
+            </table>
+          </div>
+      </div>
+      </div>
   </div>
 
   <script src="/static/main.js">
   </script>
 
   <script>
-    loadframe("/user_games", "user_games");
+    loadframe("/active_user_games", "active_user_games");
+    loadframe("/inactive_user_games", "inactive_user_games");
   </script>
 {% endblock %}

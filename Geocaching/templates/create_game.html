@@ -1,16 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h5> 
-    Create New Game Instances
-  </h5>
+  <h4> 
+    New Game Instance
+  </h4>
 
-  <form action="api/game" method="post">
-      <input type="text" name="name">
-      <input type="number" name="topleft">
-      <input type="number" name="bottomright">
-      <input type="submit" value="create">
-  </form>
+  <div class="tabs">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#game">Game</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#caches">Caches</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#review">Review</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane container active" id="game">
+        <form class="form_game" action="api/create_game" method="post">
+          <div class="form_group">
+            <label class="control-label" for="name"><b>Game Name</b></label>
+            <div>
+              <input class="game_input" type="text" name="name">
+            </div>
+          </div>
+          <div class="form_group">
+            <a><b>Area</b></a> 
+            <br>
+            <label class="control-label" for="username">Top Left Coordinates </label>
+            <div>
+              <input class="game_input" type="number" name="topleft">
+            </div>
+            <label class="control-label" for="username">Bottom Right Coordinates</label>
+            <div>
+              <input class="game_input" type="number" name="bottomright">
+            </div>
+          </div>
+          <div class="form_group">
+            <div>
+              <input type="submit" class="btn btn-secondary" value="Next" href="#caches">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="tab-pane container fade" id="caches">...</div>
+      <div class="tab-pane container fade" id="review">...</div>
+    </div>
+  </div>
 
   <script>
     function login(){

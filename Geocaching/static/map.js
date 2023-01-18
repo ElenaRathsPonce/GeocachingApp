@@ -11,6 +11,23 @@ var mapa = new ol.Map({
   })
 });
 
+mapa.on('singleclick', function(event) {
+  var coordinate = event.coordinate;
+  var lonLat = ol.proj.toLonLat(coordinate);
+  var lon = lonLat[0];
+  var lat = lonLat[1];
+  
+  addMarker(lon,lat);  
+});
+
+function getCoordinates() {  
+  lista = [];
+  lista.push(mapa.getView().getCenter());
+  lista.push(mapa.getView().getZoom());
+  lista.push("algo");
+  return "lista";
+}
+
 function setCoordinates() {
   var lat = document.getElementById("lat").value;
     var lng = document.getElementById("lng").value;
@@ -35,6 +52,20 @@ function goToPlace() {
     view.setZoom(16);
   })
   .catch(error => console.log(error));
+}
+
+function addMarker(lng,lat) {
+
+  // Inicializa el mapa en el elemento DIV con las coordenadas en el centro
+  var map = L.map('mapa').setView([lat, lng], 13);
+
+  // Agrega una capa de OpenStreetMap al mapa
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // Agrega el marcador al mapa en las coordenadas específicas
+  var marker = L.marker([lat, lng]).addTo(map);
 }
 
 if (navigator.geolocation) {

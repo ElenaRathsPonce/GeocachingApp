@@ -29,14 +29,15 @@
           </div>
           <div class="form_group">
             <a><b>Area</b></a> 
+
+            <div id="mapa" class="mapa"></div>
+            <script src="/static/map.js">  </script>
+
             <br>
-            <label class="control-label" for="username">Top Left Coordinates </label>
+            
             <div>
-              <input class="game_input" type="number" name="topleft">
-            </div>
-            <label class="control-label" for="username">Bottom Right Coordinates</label>
-            <div>
-              <input class="game_input" type="number" name="bottomright">
+              <label class="control-label" >Select area</label>
+              <button type="submit" name="area" onclick="getCoordinates()">Set area</button>
             </div>
           </div>
           <div class="form_group">

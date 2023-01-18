@@ -35,7 +35,7 @@ games_schema = {
     'state': StringField, # Overview, Supervition
     'winner': StringField, # Overview
     'finalists': ListField, # Overview
-    'area': DictField, # Creation
+    'view': DictField, # Creation
     'caches': ListField, # Creation, Supervition
 }
 
@@ -148,13 +148,13 @@ def create_game():
 # Create a game
 @app.route("/api/create_game", methods=['POST'])
 def create():
+    print(request.form.get("area"))
     inserted=client['games'].insert_one({
         'name': request.form.get("name"), 
         'state': True, 
-        #'owner':session['google_id'],
-        'owner':'114755650557250667772',
-        'topleft':int(request.form.get("topleft")),
-        'bottomright':int(request.form.get("bottomright")),
+        'owner':session['google_id'],
+        #'owner':'114755650557250667772',
+        'area':request.form.get("area"),
     })
     return redirect("/game?id="+str(inserted.inserted_id))
 

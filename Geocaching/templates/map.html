@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
    <h4>
       Mapa
@@ -14,15 +15,15 @@
         <form>
           Lugar: <input type="text" id="inputPlace">
           <button type="button" onclick="goToPlace()">Ir al lugar</button>
+          <button type="button" onclick="addMarker()">Mapa</button>
+
         </form>
     <div id="mapa" class="mapa"></div>
 
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/css/ol.css" type="text/css">
-   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/build/ol.js"></script>
-   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/build/ol3-geocoder.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/fetch-polyfill@0.1.0/fetch.min.js"></script>
-   <script src="https://unpkg.com/unfetch/dist/unfetch.umd.js"></script>
+    
+ 
+ 
+    <script src="/static/map.js">  </script>
 
-   <script src="/static/map.js">
-   </script>
+  
 {% endblock %}

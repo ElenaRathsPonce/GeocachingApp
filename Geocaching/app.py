@@ -250,6 +250,13 @@ def join_game(game_id):
 # Maps
 #########################
 
+# Map visualization page
+@app.route("/map")
+def map_route():
+    return render_template("map.html")
+
+# Visualize map with coordinates
+# @app.route("/api/map_coordinates/<string:game_id>")
 
 if __name__ == "__main__":
     app.run(debug=True)

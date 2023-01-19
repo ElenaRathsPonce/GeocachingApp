@@ -133,12 +133,6 @@ def logout():
 def index():
     return render_template("index.html")
 
-# Logout page
-@app.route("/clear_session")
-@login_is_required
-def clear_session():
-    return f"{session['name']} <br/> <a href='/logout'><button>Logout</button> </a>"
-
 # Game creation page
 @app.route("/create_game")
 #@login_is_required
@@ -219,7 +213,7 @@ def user_games(active):
     games=list(client["games"].find(filter={"owner":session["google_id"], "state":active}))
     for game in games:
         participating= list(client["user_games"].find(filter={"game":str(game["_id"]), "user":user["_id"]}))
-        participate_column="""<td scope="row"><a class='btn btn-primary' href='/join_game/"""+str(game["_id"])+"""'>Participate</a></td>"""
+        participate_column="""<td scope="row"><a class='btn btn-primary hover-d3 hover-border-theme' href='/join_game/"""+str(game["_id"])+"""'>Participate</a></td>"""
         if len(participating)>0: 
             participate_column="<td scope='row'></td>"
         if "winner" in game and game["state"]==False:
@@ -228,7 +222,7 @@ def user_games(active):
         html+="""<tr>
                     <th scope="row">"""+("""<a href='/map?id="""+str(game["_id"])+"""'>"""+game["name"]+"""</a>""" if len(participating)>0 else "<p>"+game["name"]+"</p>")+"""</th>
                     """+participate_column+"""
-                    <td scope="row"><a class='btn btn-primary' href='/game?id="""+str(game["_id"])+"""'>Supervise</a></td>
+                    <td scope="row"><a class='btn btn-primary hover-d3 hover-border-theme' href='/game?id="""+str(game["_id"])+"""'>Supervise</a></td>
                  </tr>"""
     return html + "</ul>"
 

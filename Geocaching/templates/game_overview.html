@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h4> 
-    Overview of Registered Games
-  </h4>
+  <h3> 
+    Games Overview
+  </h3>
 
-  <div id="accordion">
+  <div id="accordion" class="accordion">
       <div class="card">
       <div class="card-header">
           <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
@@ -14,12 +14,12 @@
       </div>
       <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
           <div class="card-body">
-              <table class="table">
+              <table class="table" style="width:100%">
                 <thead>
                   <tr>
-                    <th scope="col">Game</th>
-                    <th scope="col">Participate</th>
-                    <th scope="col">Supervise</th>
+                    <th style="width:50%">Game</th>
+                    <th style="width:25%">Participate</th>
+                    <th style="width:25%">Supervise</th>
                   </tr>
                 </thead>
                 <tbody id="active_user_games">
@@ -39,9 +39,9 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Game</th>
-                  <th scope="col">Winner</th>
-                  <th scope="col">Supervise</th>
+                  <th scope="col-lg-6">Game</th>
+                  <th scope="col-lg-3">Winner</th>
+                  <th scope="col-lg-3">Supervise</th>
                 </tr>
               </thead>
               <tbody id="inactive_user_games">

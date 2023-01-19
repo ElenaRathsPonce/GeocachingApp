@@ -1,44 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h4> 
+  <h3> 
     New Game Instance
-  </h4>
+  </h3>
 
-  <div class="tabs">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" data-bs-toggle="tab" href="#game">Game</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" href="#caches">Caches</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" href="#review">Review</a>
-      </li>
-    </ul>
+  <div class="container">
+    <div class="w3-row">
+         <a href="javascript:void(0)" onclick="openCreate(event, 'Game');">
+           <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">Game</div>
+         </a>
+         <a href="javascript:void(0)" onclick="openCreate(event, 'Caches');">
+           <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">Caches</div>
+         </a>
+         <a href="javascript:void(0)" onclick="openCreate(event, 'Review');">
+           <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">Review</div>
+         </a>
+       </div>
 
-    <div class="tab-content">
-      <div class="tab-pane container active" id="game">
+       <div id="Game" class="w3-container create" style="display:none">
         <form class="form_game" action="api/create_game" method="post">
           <div class="form_group">
-            <label class="control-label" for="name"><b>Game Name</b></label>
+            <label class="control-label" for="name">Name</label>
             <div>
               <input class="game_input" type="text" name="name">
             </div>
           </div>
           <div class="form_group">
-            <a><b>Area</b></a> 
-
+            <a>Area</a> 
+            <br>
             <div id="mapa" class="mapa"></div>
             <script src="/static/map.js">  </script>
-
             <br>
-            
             <div>
               <label class="control-label" >Select area</label>
               <button type="submit" name="area" onclick="getCoordinates()">Set area</button>
             </div>
+          </div>
           </div>
           <div class="form_group">
             <div>
@@ -46,15 +44,33 @@
             </div>
           </div>
         </form>
-      </div>
-      <div class="tab-pane container fade" id="caches">...</div>
-      <div class="tab-pane container fade" id="review">...</div>
-    </div>
-  </div>
+     </div>
 
-  <script>
-    function login(){
-      window.open('/login');
-    }
-  </script>
-{% endblock %}
+    <div id="Caches" class="w3-container create" style="display:none">
+    </div>
+
+    <div id="Review" class="w3-container create" style="display:none">
+    </div>
+
+     <script>
+      function openCreate(evt, createType) {
+        var i, x, tablinks;
+        x = document.getElementsByClassName("create");
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < x.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" w3-border-teal", "");
+        }
+        document.getElementById(createType).style.display = "block";
+        evt.currentTarget.firstElementChild.className += " w3-border-teal";
+      }
+      </script>
+ 
+   <script>
+     function login(){
+       window.open('/login');
+     }
+   </script>
+ {% endblock %}
